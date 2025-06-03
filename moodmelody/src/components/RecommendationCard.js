@@ -23,7 +23,7 @@ function RecommendationCard({
   onSave,
   onShare
 }) {
-  // Internal state for demo interactivity (local only)
+  // Internal state - like & save are local for demo; share invokes parent mock handler
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [shared, setShared] = useState(false);
