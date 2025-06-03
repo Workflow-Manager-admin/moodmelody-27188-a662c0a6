@@ -1,30 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 
 // PUBLIC_INTERFACE
 /**
  * LanguageSelector displays a single-select native dropdown for choosing language,
  * styled with pastel/brand colors for a consistent, inviting look.
  * Only one language may be selected at a time (native dropdown style, no scroll box).
+ *
+ * Props:
+ *   - selected: currently selected language (string)
+ *   - onChange: function(newValue: string) to handle selection change
  */
-function LanguageSelector() {
-  // List of available language options
+function LanguageSelector({ selected, onChange }) {
+  // List of available language options (replicated here for easy sharing with parent if needed)
   const languageOptions = [
     { value: "English", color: "#A8D8EA" },
     { value: "Hindi", color: "#FFB6B9" },
     { value: "Spanish", color: "#F6D6D6" },
     { value: "French", color: "#FFDDD2" },
-    { value: "Chinese", color: "#B9A7D6" },
+    { value: "Chinese", color: "#B9A7D6" }
   ];
 
-  // State for selected language (single string)
-  const [selected, setSelected] = useState(languageOptions[0].value);
-
-  /**
-   * Handle change event for <select>
-   */
   // PUBLIC_INTERFACE
   function handleChange(e) {
-    setSelected(e.target.value);
+    if (onChange) onChange(e.target.value);
   }
 
   // Pastel background gradient for dropdown
@@ -40,7 +38,7 @@ function LanguageSelector() {
           fontWeight: 500,
           color: "#666",
           marginBottom: 12,
-          letterSpacing: "0.01em",
+          letterSpacing: "0.01em"
         }}
       >
         Choose language
@@ -63,7 +61,7 @@ function LanguageSelector() {
           appearance: "auto",
           WebkitAppearance: "menulist-button",
           MozAppearance: "menulist-button",
-          cursor: "pointer",
+          cursor: "pointer"
         }}
         aria-label="Select language"
       >
@@ -76,7 +74,7 @@ function LanguageSelector() {
               color: "#294a6c",
               fontWeight: 500,
               borderRadius: 6,
-              padding: "7px 0",
+              padding: "7px 0"
             }}
           >
             {lang.value}
@@ -90,7 +88,7 @@ function LanguageSelector() {
             fontSize: "0.97em",
             color: "#A8D8EA",
             fontWeight: 500,
-            letterSpacing: ".01em",
+            letterSpacing: ".01em"
           }}
         >
           Selected: {selected}
