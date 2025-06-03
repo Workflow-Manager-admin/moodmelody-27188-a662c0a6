@@ -1,31 +1,36 @@
 import React from "react";
+import MoodLanguageSongManager from "./admin/MoodLanguageSongManager";
+import UserTrendsAnalytics from "./admin/UserTrendsAnalytics";
 
 // PUBLIC_INTERFACE
+/**
+ * AdminDashboard provides a suite of admin tools with a pastel/light theme.
+ * Integrates CRUD management for mood-language-song mappings and analytics.
+ */
 function AdminDashboard() {
   return (
-    <section style={{
-      background: "#fff",
-      borderRadius: 24,
-      padding: "42px 32px",
-      boxShadow: "0 4px 24px #A8D8EA35",
-      border: "1px solid #F6D6D6",
-      textAlign: "center"
-    }}>
-      <div style={{
-        fontWeight: 700,
-        fontSize: "1.4rem",
-        marginBottom: 20,
-        color: "#333"
-      }}>Admin Dashboard</div>
-      <div style={{color: "#555"}}>
-        [Tools for managing moods, languages, and recommendations will appear here.]
+    <section
+      style={{
+        background: "transparent", // parent sections handle backgrounds
+        borderRadius: 0,
+        padding: 0,
+        boxShadow: "none",
+        textAlign: "left",
+      }}
+    >
+      <div
+        style={{
+          fontWeight: 700,
+          fontSize: "1.36rem",
+          marginBottom: 18,
+          color: "#333",
+          paddingLeft: 7,
+        }}
+      >
+        Admin Dashboard
       </div>
-      <div style={{
-        marginTop: 32,
-        color: "#FFB6B9"
-      }}>
-        [User analytics and trend charts coming soon!]
-      </div>
+      <MoodLanguageSongManager />
+      <UserTrendsAnalytics />
     </section>
   );
 }
