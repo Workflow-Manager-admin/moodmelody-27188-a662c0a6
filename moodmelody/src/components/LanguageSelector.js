@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 // PUBLIC_INTERFACE
 /**
- * LanguageSelector displays a multi-select dropdown for choosing languages,
+ * LanguageSelector displays a single-select native dropdown for choosing language,
  * styled with pastel/brand colors for a consistent, inviting look.
- * Uses multi-select if required (true by default).
+ * Only one language may be selected at a time (native dropdown style, no scroll box).
  */
-function LanguageSelector({ multiSelect = true }) {
+function LanguageSelector() {
   // List of available language options
   const languageOptions = [
     { value: "English", color: "#A8D8EA" },
@@ -16,25 +16,22 @@ function LanguageSelector({ multiSelect = true }) {
     { value: "Chinese", color: "#B9A7D6" },
   ];
 
-  // State for selected languages
-  const [selected, setSelected] = useState([]);
+  // State for selected language (single string)
+  const [selected, setSelected] = useState(languageOptions[0].value);
 
   /**
    * Handle change event for <select>
    */
   // PUBLIC_INTERFACE
   function handleChange(e) {
-    const options = Array.from(e.target.selectedOptions, (option) => option.value);
-    setSelected(options);
+    setSelected(e.target.value);
   }
 
   // Pastel background gradient for dropdown
-  const pastelGradient =
-    "linear-gradient(90deg, #A8D8EA 60%, #F6D6D6 100%)";
+  const pastelGradient = "linear-gradient(90deg, #A8D8EA 60%, #F6D6D6 100%)";
+  const pastelBoxShadow = "0 2px 8px #A8D8EA30";
 
-  const pastelBoxShadow =
-    "0 2px 8px #A8D8EA30";
-
+  // Custom pastel border + compact native dropdown look
   return (
     <div style={{ marginBottom: 28, textAlign: "center" }}>
       <div
@@ -46,10 +43,9 @@ function LanguageSelector({ multiSelect = true }) {
           letterSpacing: "0.01em",
         }}
       >
-        Choose language{multiSelect ? "(s)" : ""}
+        Choose language
       </div>
       <select
-        multiple={multiSelect}
         value={selected}
         onChange={handleChange}
         style={{
@@ -64,8 +60,12 @@ function LanguageSelector({ multiSelect = true }) {
           fontWeight: 500,
           boxShadow: pastelBoxShadow,
           transition: "border 0.2s",
+          appearance: "auto",
+          WebkitAppearance: "menulist-button",
+          MozAppearance: "menulist-button",
+          cursor: "pointer",
         }}
-        aria-label={`Select language${multiSelect ? "s" : ""}`}
+        aria-label="Select language"
       >
         {languageOptions.map((lang) => (
           <option
@@ -83,7 +83,7 @@ function LanguageSelector({ multiSelect = true }) {
           </option>
         ))}
       </select>
-      {selected.length > 0 && (
+      {selected && (
         <div
           style={{
             marginTop: 11,
@@ -93,8 +93,7 @@ function LanguageSelector({ multiSelect = true }) {
             letterSpacing: ".01em",
           }}
         >
-          Selected:{" "}
-          {selected.join(", ")}
+          Selected: {selected}
         </div>
       )}
     </div>
