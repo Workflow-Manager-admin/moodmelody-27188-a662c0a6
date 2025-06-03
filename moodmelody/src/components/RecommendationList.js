@@ -1,14 +1,14 @@
 import React from "react";
 import RecommendationCard from "./RecommendationCard";
 
-// PUBLIC_INTERFACE
 /**
+ * PUBLIC_INTERFACE
  * RecommendationList renders a list of music recommendations filtered by mood and language,
  * with an aesthetically pastel music card UI and interactive controls.
  *
  * Props:
- *   - mood: string (user's selected mood)
- *   - language: string (user's selected language)
+ *   - mood: string (user's selected mood)   [from navigation state, URL params, or parent]
+ *   - language: string (user's selected language)  [from navigation state, URL params, or parent]
  */
 function RecommendationList({ mood, language }) {
   // Mock recommendation data with moods & languages for demo filtering

@@ -129,11 +129,30 @@ function MainContainer() {
 
   // Recommendations page: shows RecommendationList, receives state via location
   function renderRecommendationsPage() {
-    let mood = selectedMood, language = selectedLanguage;
-    // Also query from router state in case page was refreshed after redirect
+    // Defensive: get mood/language from (1) route state, (2) URL params, (3) fallback to last local state
+    let mood, language;
+
+    // 1. Try React Router location.state
     if (location.state) {
-      mood = location.state.mood || mood;
-      language = location.state.language || language;
+      mood = location.state.mood;
+      language = location.state.language;
+    }
+
+    // 2. If not available (on direct navigation/page reload), try URLSearchParams
+    if (!mood || !language) {
+      const searchParams = new URLSearchParams(location.search);
+      const moodParam = searchParams.get("mood");
+      const languageParam = searchParams.get("language");
+      if (moodParam && languageParam) {
+        mood = moodParam;
+        language = languageParam;
+      }
+    }
+
+    // 3. Fallback to selected state (should only happen for purpose of retaining memory)
+    if (!mood || !language) {
+      mood = selectedMood;
+      language = selectedLanguage;
     }
 
     return (
