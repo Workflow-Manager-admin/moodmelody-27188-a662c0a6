@@ -60,7 +60,8 @@ function MainContainer() {
   // Handler to proceed to recommendations if both mood and language available
   function handleProceed() {
     if (selectedMood && selectedLanguage) {
-      navigate("/recommendations", {
+      // Use both state and search params for robustness (so refresh/bookmark/direct navigation works)
+      navigate(`/recommendations?mood=${encodeURIComponent(selectedMood)}&language=${encodeURIComponent(selectedLanguage)}`, {
         state: {
           mood: selectedMood,
           language: selectedLanguage
