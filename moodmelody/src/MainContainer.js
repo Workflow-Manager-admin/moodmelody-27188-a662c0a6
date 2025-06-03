@@ -69,14 +69,7 @@ function MainContainer() {
     }
   }
 
-  // This effect will auto-redirect when both mood and language are chosen (user view only)
-  React.useEffect(() => {
-    // Only auto-redirect if in the main ("/") location and user view is active
-    if (view === "user" && selectedMood && selectedLanguage && (location.pathname === "/" || location.pathname === "/home")) {
-      handleProceed();
-    }
-    // eslint-disable-next-line
-  }, [selectedMood, selectedLanguage, view]);
+  // Remove auto-redirect: now user clicks Recommend explicitly
 
   // Handler for manual mood selection changed (from MoodSelector child)
   // MoodSelector will call this when user selects or submits a mood
@@ -84,6 +77,8 @@ function MainContainer() {
 
   // Home user landing: mood/language selection
   function renderHomeSelection() {
+    // Button should be enabled only if both mood and language are selected or entered
+    const isRecommendEnabled = !!selectedMood && !!selectedLanguage;
     return (
       <div className="container" style={{
           maxWidth: 1100, margin: "0 auto", padding: "32px 0", display: "flex", flexWrap: "wrap", gap: 36
@@ -95,6 +90,33 @@ function MainContainer() {
           }}>
             <MoodSelector onMoodChange={handleMoodChange} />
             <LanguageSelector selected={selectedLanguage} onChange={handleLanguageChange} />
+            <div style={{ textAlign: "center", marginTop: 30 }}>
+              <button
+                className="btn btn-large"
+                style={{
+                  background: isRecommendEnabled ? "#A8D8EA" : "#A8D8EA77",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "14px 40px",
+                  fontWeight: 600,
+                  fontSize: "1.2rem",
+                  letterSpacing: ".02em",
+                  boxShadow: isRecommendEnabled
+                    ? "0 2px 12px #A8D8EA55"
+                    : "0 2px 8px #A8D8EA22",
+                  cursor: isRecommendEnabled ? "pointer" : "not-allowed",
+                  opacity: isRecommendEnabled ? 1 : 0.65,
+                  transition: "background 0.14s, box-shadow 0.13s, opacity 0.13s"
+                }}
+                onClick={handleProceed}
+                disabled={!isRecommendEnabled}
+                data-testid="recommend-button"
+                aria-label="Get music recommendations"
+              >
+                Recommend
+              </button>
+            </div>
           </section>
         </main>
         <aside style={{flex: 1, minWidth: 230, maxWidth: 350}}>
