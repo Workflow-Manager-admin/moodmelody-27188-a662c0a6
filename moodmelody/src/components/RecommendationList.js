@@ -1,4 +1,37 @@
 import React from "react";
+import RecommendationCard from "./RecommendationCard";
+
+// Dummy data for music recommendations
+const dummyRecommendations = [
+  {
+    title: "Lost in the Light",
+    artist: "Paper Sounds",
+    coverUrl: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=facearea&w=96&q=80",
+    mediaType: "spotify",
+    mediaSrc: "https://open.spotify.com/track/example1"
+  },
+  {
+    title: "Today Feels Right",
+    artist: "Sunset Drive",
+    coverUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=96&q=80",
+    mediaType: "youtube",
+    mediaSrc: "https://www.youtube.com/watch?v=video2"
+  },
+  {
+    title: "Shades of Spring",
+    artist: "Amara",
+    coverUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=facearea&w=96&q=80",
+    mediaType: "spotify",
+    mediaSrc: "https://open.spotify.com/track/example3"
+  },
+  {
+    title: "Breeze",
+    artist: "Nova Blue",
+    // No cover for demo
+    mediaType: "youtube",
+    mediaSrc: "https://www.youtube.com/watch?v=video4"
+  }
+];
 
 // PUBLIC_INTERFACE
 function RecommendationList() {
@@ -7,41 +40,26 @@ function RecommendationList() {
       <div style={{
         fontWeight: 600,
         fontSize: "1.1rem",
-        marginBottom: 12,
-        color: "#333"
+        marginBottom: 16,
+        color: "#333",
+        letterSpacing: ".01em"
       }}>
         Your Recommendations
       </div>
-      {/* Placeholder cards */}
       <div style={{
         display: "flex",
         flexWrap: "wrap",
-        gap: 18
+        gap: 22,
+        justifyContent: "flex-start"
       }}>
-        {["Sample Song 1", "Sample Song 2", "Sample Song 3"].map((song, i) => (
-          <div key={i} style={{
-            background: "#fff",
-            padding: 18,
-            borderRadius: 14,
-            boxShadow: "0 2px 10px #A8D8EA40",
-            minWidth: 220,
-            flex: 1
-          }}>
-            <div style={{fontWeight: 500, fontSize: "1rem", color: "#222"}}>{song}</div>
-            <div style={{margin: "12px 0", height: 92,
-              background: "#A8D8EA40", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", color: "#888"
-            }}>
-              [Embedded Player coming soon]
-            </div>
-            <div>
-              <button className="btn" style={{
-                background: "#FFB6B9", color: "#fff", border: "none", borderRadius: 4, padding: "6px 16px", marginRight: 7, cursor: "pointer"
-              }}>Like</button>
-              <button className="btn" style={{
-                background: "#A8D8EA", color: "#fff", border: "none", borderRadius: 4, padding: "6px 16px", cursor: "pointer"
-              }}>Save</button>
-            </div>
-          </div>
+        {dummyRecommendations.map((rec, idx) => (
+          <RecommendationCard
+            key={idx}
+            {...rec}
+            onLike={() => { /* stub */ }}
+            onSave={() => { /* stub */ }}
+            onShare={() => { /* stub */ }}
+          />
         ))}
       </div>
     </div>
