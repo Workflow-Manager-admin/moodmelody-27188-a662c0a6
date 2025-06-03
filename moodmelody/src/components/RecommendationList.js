@@ -33,8 +33,16 @@ const dummyRecommendations = [
   }
 ];
 
-// PUBLIC_INTERFACE
-function RecommendationList() {
+/**
+ * PUBLIC_INTERFACE
+ * RecommendationList renders a list of music recommendations based on user input.
+ * Props:
+ *   - mood: string (optional) - the user's selected mood
+ *   - language: string (optional) - the user's selected language
+ */
+function RecommendationList({ mood, language }) {
+  // In the future, filter or fetch recommendations using mood/language.
+  // For now, still display dummy recommendations.
   return (
     <div>
       <div style={{
@@ -44,7 +52,9 @@ function RecommendationList() {
         color: "#333",
         letterSpacing: ".01em"
       }}>
-        Your Recommendations
+        {mood && language
+          ? `Recommendations for "${mood}" in ${language}`
+          : "Your Recommendations"}
       </div>
       <div style={{
         display: "flex",
