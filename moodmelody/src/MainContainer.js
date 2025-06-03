@@ -12,10 +12,28 @@ function MainContainer() {
   // State for current view (user/admin), could be based on auth in future
   const [view, setView] = useState("user"); // "user" or "admin"
 
+  // List of supported languages must be in sync with LanguageSelector
+  const languageOptions = [
+    { value: "English", color: "#A8D8EA" },
+    { value: "Hindi", color: "#FFB6B9" },
+    { value: "Spanish", color: "#F6D6D6" },
+    { value: "French", color: "#FFDDD2" },
+    { value: "Chinese", color: "#B9A7D6" }
+  ];
+
+  // State for selected language (single string)
+  const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0].value);
+
   // Switch between User and Admin for demo purposes
   const handleSwitchView = () => {
     setView((prev) => (prev === "user" ? "admin" : "user"));
   };
+
+  // Handler passed to LanguageSelector for updating selected language in MainContainer state
+  // PUBLIC_INTERFACE
+  function handleLanguageChange(newLang) {
+    setSelectedLanguage(newLang);
+  }
 
   return (
     <div className="main-container" style={{
@@ -57,7 +75,7 @@ function MainContainer() {
               boxShadow: "0 4px 28px #B9A7D6c0", border: "1px solid #F6D6D6"
             }}>
               <MoodSelector />
-              <LanguageSelector />
+              <LanguageSelector selected={selectedLanguage} onChange={handleLanguageChange} />
             </section>
             <section>
               <RecommendationList />
