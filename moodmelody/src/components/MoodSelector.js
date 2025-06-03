@@ -48,6 +48,9 @@ function MoodSelector({ onMoodChange }) {
     if (inputValue.trim() !== "") {
       setSelectedMood(inputValue.trim());
       setJustSubmitted(true);
+      if (typeof onMoodChange === "function") {
+        onMoodChange(inputValue.trim());
+      }
     }
   }
 
