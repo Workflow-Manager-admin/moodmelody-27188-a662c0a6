@@ -139,7 +139,7 @@ function RecommendationCard({
           aria-label="Like this song"
           onClick={() => {
             setLiked((l) => !l);
-            if (onLike) onLike();
+            if (onLike) onLike(!liked);
           }}
         >
           {liked ? "♥ Liked" : "♡ Like"}
@@ -158,8 +158,9 @@ function RecommendationCard({
           }}
           aria-label="Save this song"
           onClick={() => {
-            setSaved((s) => !s);
-            if (onSave) onSave();
+            const newSaved = !saved;
+            setSaved(newSaved);
+            if (onSave) onSave(newSaved);
           }}
         >
           {saved ? "✓ Saved" : "💾 Save"}

@@ -56,9 +56,12 @@ function RecommendationList() {
           <RecommendationCard
             key={idx}
             {...rec}
-            onLike={() => { /* stub */ }}
-            onSave={() => { /* stub */ }}
-            onShare={() => { /* stub */ }}
+            onLike={() => { /* could handle like globally */ }}
+            onSave={() => { /* could handle save globally */ }}
+            onShare={() => {
+              // Mock alert for share button
+              window.alert("Share functionality coming soon!\n(You clicked share on: " + rec.title + ")");
+            }}
           />
         ))}
       </div>
