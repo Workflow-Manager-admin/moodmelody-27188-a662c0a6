@@ -4,8 +4,11 @@ import React, { useState } from "react";
  * PUBLIC_INTERFACE
  * MoodSelector allows user to select a mood via emoji or text input.
  * Shows visual indication for selected emoji or submitted mood text.
+ *
+ * Props:
+ * - onMoodChange: function(newMood: string) [optional] - called when user selects/enters a mood
  */
-function MoodSelector() {
+function MoodSelector({ onMoodChange }) {
   // Emoji mood options
   const moods = [
     { emoji: "😊", label: "happy" },
@@ -25,6 +28,9 @@ function MoodSelector() {
     setSelectedMood(label);
     setInputValue("");
     setJustSubmitted(false);
+    if (typeof onMoodChange === "function") {
+      onMoodChange(label);
+    }
   }
 
   // PUBLIC_INTERFACE
